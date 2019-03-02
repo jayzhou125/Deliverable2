@@ -1,10 +1,15 @@
 # This is a location class
 class Location
   attr_accessor :name, :neighbors, :max_ruby
-  def initialize(name, neighbors, num_real, num_fake)
+  def initialize(name, num_real, num_fake)
     @name = name
-    @neighbors = neighbors # neighbors is an array
+    @neighbors = [] # neighbors is an array
     @max_ruby = [num_real, num_fake]
+  end
+
+  # This method helps set up the neighbor of a single locaiton
+  def add_neighbors(array_of_neighbors)
+    @neighbors = array_of_neighbors
   end
 
   # This would return the next neighbor pros should go

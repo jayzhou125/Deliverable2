@@ -36,8 +36,8 @@ class Prospector
   # THis is to print the heading
   # argument: previous_location, current_locaiton
   # return: N/A
-  def print_heading(previous_location, current_locaiton)
-    puts "Heading from #{previous_location.name} to #{current_locaiton.name}"
+  def print_heading(p_location, c_location)
+    puts "Heading from #{p_location} to #{c_location}"
   end
 
   # This method decides whether use plural
@@ -56,6 +56,16 @@ class Prospector
     return 'empty-handed.' if total_real.zero?
   end
 
+  # This method shows the reault of a rush
+  # argument: day, number, total_ruby_found
+  # return: N/A
+  def show_rush_result(day, number, total_ruby_found)
+    puts "After #{day} days, Rubyist #{number} found:
+        #{total_ruby_found[0]} rubies.
+        #{total_ruby_found[1]} fake rubies.
+Going home #{mood?(total_ruby_found)}"
+  end
+
   # This is the dig method
   # argument: location, rng
   # return: true after finished digging
@@ -71,16 +81,6 @@ class Prospector
     true
   end
 
-  # This method shows the reault of a rush
-  # argument: day, number, total_ruby_found
-  # return: N/A
-  def show_rush_result(day, number, total_ruby_found)
-    puts "After #{day} days, Rubyist #{number} found:
-        #{total_ruby_found[0]} rubies.
-        #{total_ruby_found[1]} fake rubies.
-Going home #{mood?(total_ruby_found)}"
-  end
-
   # This is the actual method where prospector do the rush
   def ruby_rush(current_locaiton)
     print_start(@number)
@@ -88,9 +88,9 @@ Going home #{mood?(total_ruby_found)}"
       done = dig(current_locaiton, @rng) # return whether finished with the current location
       if done == true # if done with the current location
         @num_of_turns -= 1 # update the count
-        previous_location = current_locaiton
+        previous_location = current_locaiton.name
         current_locaiton = current_locaiton.go_to_next(@rng) # go to next location
-        print_heading(previous_location, current_locaiton)
+        print_heading(previous_location, current_locaiton.name) # print heading from and to
       end
     end
     show_rush_result(@day, @number, @total_ruby_found) # print the result of rubyist rush

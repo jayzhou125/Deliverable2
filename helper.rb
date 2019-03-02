@@ -1,19 +1,32 @@
 require_relative 'prospector.rb'
 require_relative 'location.rb'
 
-# array of location names
-@l_name = ['Enumerable Canyon', 'Duck Type Beach', 'Monkey Patch City',
-           'Nil Town', 'Matzburg', 'Hash Crossing', 'Dynamic Palisades']
-
 # set up the lacation map
 def set_map
-  @ec = Location.new(@l_name[0], [@dtb, @mpc], 1, 1)
-  @dtb = Location.new(@l_name[1], [@ec, @m], 2, 2)
-  @mpc = Location.new(@l_name[2], [@ec, @nt, @m], 1, 1)
-  @nt = Location.new(@l_name[3], [@mpc, @hc], 0, 3)
-  @m = Location.new(@l_name[4], [@dtb, @mpc, @hc, @dp], 3, 0)
-  @hc = Location.new(@l_name[5], [@nt, @m, @dp], 2, 2)
-  @dp = Location.new(@l_name[6], [@m, @hc], 2, 2)
+  create_single_locations
+  construct_the_map
+end
+
+# This method create every locations of the map
+def create_single_locations
+  @ec = Location.new('Enumerable Canyon', 1, 1)
+  @dtb = Location.new('Duck Type Beach', 2, 2)
+  @mpc = Location.new('Monkey Patch City', 1, 1)
+  @nt = Location.new('Nil Town', 0, 3)
+  @m = Location.new('Matzburg', 3, 0)
+  @hc = Location.new('Hash Crossing', 2, 2)
+  @dp = Location.new('Dynamic Palisades', 2, 2)
+end
+
+# This method puts together the map
+def construct_the_map
+  @ec.add_neighbors([@dtb, @mpc])
+  @dtb.add_neighbors([@ec, @m])
+  @mpc.add_neighbors([@nt, @ec, @m])
+  @nt.add_neighbors([@mpc, @hc])
+  @m.add_neighbors([@mpc, @dtb, @hc, @dp])
+  @hc.add_neighbors([@m, @nt, @dp])
+  @dp.add_neighbors([@m, @hc])
   [@ec, @dtb, @mpc, @nt, @m, @hc, @dp]
 end
 
