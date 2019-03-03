@@ -3,7 +3,6 @@ require_relative 'location.rb'
 require_relative 'helper.rb'
 
 location = set_map
-# puts location.to_s
 exit_code, seed, num_of_prospectors, num_of_turns = validates(ARGV)
 if exit_code.zero? # if code is exit_code is 0
   rng = Random.new(seed) # make a random number generator

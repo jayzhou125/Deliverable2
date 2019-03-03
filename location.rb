@@ -1,3 +1,6 @@
+require_relative 'location_test'
+
+
 # This is a location class
 class Location
   attr_accessor :name, :neighbors, :max_ruby
@@ -16,8 +19,8 @@ class Location
   # argument: prng
   # return: Location
   def go_to_next(rng)
-    choice = rng.rand(0..@neighbors.size)
-    neighbors[choice]
+    choice = rng.rand(0...@neighbors.size)
+    @neighbors[choice]
   end
 
   # This method ruturns the number ruby prospector found in one location

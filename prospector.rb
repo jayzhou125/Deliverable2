@@ -1,3 +1,5 @@
+require_relative 'prospector_test'
+
 # This is a prospector class
 class Prospector
   attr_accessor :Location, :num_ruby_found, :num_of_turns, :prng
@@ -68,7 +70,7 @@ Going home #{mood?(total_ruby_found)}"
 
   # This is the dig method
   # argument: location, rng
-  # return: true after finished digging
+  # return: N/A
   def dig(current_locaiton, rng)
     current_found = []
     while current_found != [0, 0]
@@ -78,26 +80,24 @@ Going home #{mood?(total_ruby_found)}"
       @total_ruby_found[1] += current_found[1] # add up the fake ruby
       print_ruby_found_in_this_location(current_locaiton, current_found)
     end
-    true
+    # true
   end
 
   # This is the actual method where prospector do the rush
   def ruby_rush(current_locaiton)
     print_start(@number)
     if @num_of_turns > 1
-      while num_of_turns != 0 # keep the count of turns
-        done_with_current = dig(current_locaiton, @rng) # return whether finished with the current location
-        if done_with_current == true # if done with the current location
-          @num_of_turns -= 1 # update the count
-          previous_location = current_locaiton.name
-          current_locaiton = current_locaiton.go_to_next(@rng) # go to next location
-          print_heading(previous_location, current_locaiton.name) # print heading from and to
-        end
+      loop do
+        dig(current_locaiton, @rng) # return whether finished with the current location
+        @num_of_turns -= 1 # update the count
+        break if @num_of_turns.zero?
+
+        previous_location = current_locaiton.name
+        current_locaiton = current_locaiton.go_to_next(@rng) # go to next location
+        print_heading(previous_location, current_locaiton.name) # print heading from and to
       end
-      show_rush_result(@day, @number, @total_ruby_found) # print the result of rubyist rush
-    else
-      done = dig(current_locaiton, @rng) # return whether finished with the current location
-      show_rush_result(@day, @number, @total_ruby_found) if done # print the result of rubyist rush
     end
+    dig(current_locaiton, @rng) # return whether finished with the current location
+    show_rush_result(@day, @number, @total_ruby_found) # print the result of rubyist rush
   end
 end

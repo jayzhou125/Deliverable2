@@ -1,4 +1,4 @@
 require 'simplecov'
 require 'minitest/autorun'
 
-require_relative 'prospector.rb'
+require_relative 'location'
