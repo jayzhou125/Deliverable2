@@ -1,6 +1,4 @@
-require_relative 'location_test'
-
-
+# require_relative 'location_test'
 # This is a location class
 class Location
   attr_accessor :name, :neighbors, :max_ruby

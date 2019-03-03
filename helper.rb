@@ -1,6 +1,6 @@
 require_relative 'prospector.rb'
 require_relative 'location.rb'
-require_relative 'helper_test'
+# require_relative 'helper_test'
 
 # set up the lacation map
 # argument: N/A

@@ -1,5 +1,4 @@
-require_relative 'prospector_test'
-
+# require_relative 'prospector_test'
 # This is a prospector class
 class Prospector
   attr_accessor :Location, :num_ruby_found, :num_of_turns, :prng
