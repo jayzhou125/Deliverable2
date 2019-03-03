@@ -37,7 +37,7 @@ def validates(args)
   neg_check = neg_check(args)
   return [1, 1, 1, 1] if num_check == false || int_check == false || neg_check == false
 
-  [0, args[2].to_i, args[2].to_i, args[2].to_i]
+  [0, args[0].to_i, args[1].to_i, args[2].to_i]
 end
 
 # check commandline arguments

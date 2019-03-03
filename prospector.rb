@@ -84,15 +84,20 @@ Going home #{mood?(total_ruby_found)}"
   # This is the actual method where prospector do the rush
   def ruby_rush(current_locaiton)
     print_start(@number)
-    while num_of_turns != 0 # keep the count of turns
-      done = dig(current_locaiton, @rng) # return whether finished with the current location
-      if done == true # if done with the current location
-        @num_of_turns -= 1 # update the count
-        previous_location = current_locaiton.name
-        current_locaiton = current_locaiton.go_to_next(@rng) # go to next location
-        print_heading(previous_location, current_locaiton.name) # print heading from and to
+    if @num_of_turns > 1
+      while num_of_turns != 0 # keep the count of turns
+        done_with_current = dig(current_locaiton, @rng) # return whether finished with the current location
+        if done_with_current == true # if done with the current location
+          @num_of_turns -= 1 # update the count
+          previous_location = current_locaiton.name
+          current_locaiton = current_locaiton.go_to_next(@rng) # go to next location
+          print_heading(previous_location, current_locaiton.name) # print heading from and to
+        end
       end
+      show_rush_result(@day, @number, @total_ruby_found) # print the result of rubyist rush
+    else
+      done = dig(current_locaiton, @rng) # return whether finished with the current location
+      show_rush_result(@day, @number, @total_ruby_found) if done # print the result of rubyist rush
     end
-    show_rush_result(@day, @number, @total_ruby_found) # print the result of rubyist rush
   end
 end
