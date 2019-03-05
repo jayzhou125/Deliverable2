@@ -42,6 +42,8 @@ class Prospector
   end
 
   # This method decides whether use plural
+  # argument: num
+  # return: ruby/rubies
   def plural?(num)
     return 'ruby' if num == 1
     return 'rubies' if num > 1

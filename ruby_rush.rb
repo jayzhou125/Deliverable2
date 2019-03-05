@@ -6,7 +6,7 @@ location = set_map
 exit_code, seed, num_of_prospectors, num_of_turns = validates(ARGV)
 if exit_code.zero? # if code is exit_code is 0
   rng = Random.new(seed) # make a random number generator
-  (1..num_of_prospectors).each do |number|
+  (1..num_of_prospectors).each do |number| # behavior note: if pass in 0 as num_prospector, no output
     ruby_digger = Prospector.new(number, num_of_turns, rng)
     ruby_digger.ruby_rush(location[0]) # always start with the same location
   end

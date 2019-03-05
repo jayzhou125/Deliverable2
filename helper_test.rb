@@ -11,46 +11,68 @@ class Helpertest < Minitest::Test
   # UNIT TESTS FOR METHOD set_up
   # expect :create_single_locations
   # expect :construct_the map
+  # excluding testing method "create_single_locations" since it does only initializations
+  # This test the set up
   def test_set_map
     set_map
-    assert expect: create_single_locations
-    assert expect: construct_the_map
+    assert expect: create_single_locations # pass
+    assert expect: construct_the_map # pass
   end
-
-  # UNIT TESTS FOR METHOD create_single_locations
-  # verify every location
 
   # UNIT TESTS FOR METHOD construct_the_map
   # verify the return value
+  def test_construct_map
+    create_single_locations
+    val = construct_the_map
+    assert_equal val.size, 7 # pass
+  end
 
   # This suit test validates method
   # UNIT TESTS FOR num_check(args)
   # Equivalence classes:
+  # fail:
   # args = [] --> false
   # args = [1] --> false
   # args = [1, 1] --> false
-  # args = [1, 1, 1] --> nil
   # args.size > 3 --> false
-  def test_num_check
+  # pass:
+  # args = [1, 1, 1] --> nil
+  # args = [k, k, k] --> nil
+  # This is testing fail condition
+  def test_num_check_fail
     assert_equal num_check([]), false # pass
     assert_equal num_check(['1']), false # pass
     assert_equal num_check(['1', '1']), false # pass
-    assert_equal num_check(['1', '1', '1']), nil # pass
-    assert_equal num_check(['k', 'k', 'k']), nil # pass
     assert_equal num_check(['k', 'k', 'k', 'k']), false # pass
+  end
+
+  # This is testing pass condition
+  def test_num_check_pass
+    assert_nil num_check(['1', '1', '1']) # pass
+    assert_nil num_check(['k', 'k', 'k']) # pass
   end
 
   # UNIT TESTS FOR int_check(args)
   # Equivalence classes:
+  # pass:
   # args = [] --> false (EDGE CASE)
-  # args = [1, 1, 1] --> nil
+  # args = [1] --> true
+  # args = [1, 1] --> true
+  # args = [1, 1, 1] --> true
+  # fail:
+  # args = [k, k, k] --> true
   # args = [a, s, d, f] --> false
-  # args = [1, 2, 3, 4, 5] --> nil
-  def test_int_check
-    assert_equal int_check([]), true # pass
+  # This test the passing cases
+  # contain EDGE CASE
+  def test_int_check_pass
+    assert_equal int_check([]), true # EDGE CASE
     assert_equal int_check(['1']), true # pass
     assert_equal int_check(['1', '1']), true # pass
     assert_equal int_check(['1', '1', '1']), true # pass
+  end
+
+  # This tests the failing cases
+  def test_int_check_fail
     assert_equal int_check(['k', 'k', 'k']), false # pass
     assert_equal int_check(['a', 's', 'd', 'f']), false # pass
   end
@@ -71,19 +93,21 @@ class Helpertest < Minitest::Test
 
   # This tests when argument contain no negative in the [1] or [2] index
   def test_neg_check_success
-    assert_equal neg_check(['0', '0', '0']), nil # pass
-    assert_equal neg_check(['0', '2', '3']), nil # pass
+    assert_nil neg_check(['0', '0', '0']) # pass
+    assert_nil neg_check(['0', '2', '3'])# pass
   end
 
   # UNIT TESTS FOR validates(args)
   # SUCCESS CASES: args.size == 3, all elements are integer, args[1] & args[2] are non-negtive
   # FAILURE CASES: any one of the three conditions return false
   # Equivalence classes:
+  # Not as requried:
   # args = [1] --> [1, nil, nil, nil]
   # args = [1, 1] --> [1, nil, nil, nil]
   # args = [k, 1, 6] --> [1, nil, nil, nil]
   # args = [1, -1, 1] --> [1, nil, nil, nil]
   # args = [-19, 4, -1] --> [1, nil, nil, nil]
+  # As requried:
   # args = [2, 2, 2] --> [0, 2, 2, 2]
   # args = [-16, 4, 2] --> [0, -16, 4, 2]
   # This test when argument is not as required
@@ -102,7 +126,6 @@ class Helpertest < Minitest::Test
   end
 
   # UNIT TEST FOR print_usage
-  # compare the output
   def test_print_usage
     assert_output("Usage:
 ruby ruby_rush.rb *seed* *num_prospectors* *num_turns*

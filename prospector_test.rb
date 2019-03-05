@@ -225,6 +225,7 @@ Going home victorious!\n"){ @p.show_rush_result(2, 1, [10, 10]) }
   # no turns to make
   # more than 1 turn
   # This test when no turn is needed
+  # EDGE CASE
   def test_ruby_rush_no_turn
     mock_location = Minitest::Mock.new('location')
     mock_rng = Minitest::Mock.new('rng')
@@ -234,6 +235,27 @@ Going home victorious!\n"){ @p.show_rush_result(2, 1, [10, 10]) }
     assert_output("Rubyist #1 starting in Enumerable Canyon.
         Found no rubies or fake rubies in a.
 After 1 days, Rubyist 1 found:
+        0 rubies.
+        0 fake rubies.
+Going home empty-handed.\n"){@p2.ruby_rush(mock_location)}
+  end
+
+  # UNIT TEST FOR ruby_rush(location)
+  # Equvalent classes:
+  # no turns to make
+  # more than 1 turn
+  # This test when 0 prospector is passed, if run "ruby ruby_rush.rb",
+  # it should output nothing, however, in this case it should print Rubyist #0
+  # EDGE CASE
+  def test_ruby_rush_no_rubyist
+    mock_location = Minitest::Mock.new('location')
+    mock_rng = Minitest::Mock.new('rng')
+    @p2 = Prospector.new(0, 0, mock_rng)
+    def mock_location.name; 'a'; end
+    def mock_location.random_total_ruby(mock_rng); [0, 0]; end
+    assert_output("Rubyist #0 starting in Enumerable Canyon.
+        Found no rubies or fake rubies in a.
+After 1 days, Rubyist 0 found:
         0 rubies.
         0 fake rubies.
 Going home empty-handed.\n"){@p2.ruby_rush(mock_location)}
