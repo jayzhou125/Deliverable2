@@ -263,21 +263,18 @@ Going home empty-handed.\n"){@p2.ruby_rush(mock_location)}
 
   # This test when at least one turn is needed
   def test_ruby_rush_turns
-      mock_location = Minitest::Mock.new('location')
-      mock_rng = Minitest::Mock.new('rng')
-      @p2 = Prospector.new(1, 2, mock_rng)
-      def mock_location.name; 'a'; end
-      def mock_location.random_total_ruby(mock_rng); [0, 0]; end
-      def mock_location.go_to_next(x); end
-      assert_output("Rubyist #1 starting in Enumerable Canyon.
-          Found no rubies or fake rubies in a.
-After 1 days, Rubyist 1 found:
-        0 rubies.
-        0 fake rubies.
-Going home empty-handed.
-Rubyist #2 starting in Enumerable Canyon.
-          Found no rubies or fake rubies in a.
-After 1 days, Rubyist 2 found:
+    mock_location = Minitest::Mock.new('location')
+    mock_rng = Minitest::Mock.new('rng')
+    @p2 = Prospector.new(1, 2, mock_rng)
+    def mock_location.name; 'a'; end
+    def mock_location.go_to_next(mock_rng); [self, self][0];end
+    def mock_location.random_total_ruby(mock_rng); [0, 0]; end
+    assert_output("Rubyist #1 starting in Enumerable Canyon.
+        Found no rubies or fake rubies in a.
+Heading from a to a
+        Found no rubies or fake rubies in a.
+        Found no rubies or fake rubies in a.
+After 3 days, Rubyist 1 found:
         0 rubies.
         0 fake rubies.
 Going home empty-handed.\n"){@p2.ruby_rush(mock_location)}
