@@ -63,6 +63,9 @@ def int_check(args)
   args.each { |i| Integer(i) }
 rescue StandardError
   false
+else
+  true
+  # end
 end
 
 # helper method checking commandline arguments
@@ -76,9 +79,9 @@ end
 # argument: N/A
 # return: N/A
 def print_usage
-  puts 'Usage:
+  puts "Usage:
 ruby ruby_rush.rb *seed* *num_prospectors* *num_turns*
 *seed* should be an integer
 *num_prospectors* should be a non-negative integer
-*num_turns* should be a non-negative integer'
+*num_turns* should be a non-negative integer"
 end

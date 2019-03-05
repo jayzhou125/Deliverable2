@@ -1,7 +1,7 @@
 # require_relative 'prospector_test'
 # This is a prospector class
 class Prospector
-  attr_accessor :Location, :num_ruby_found, :num_of_turns, :prng
+  # attr_accessor :number
   def initialize(number, num_of_turns, rng)
     @number = number
     @num_of_turns = num_of_turns
@@ -52,7 +52,7 @@ class Prospector
   # return mood
   def mood?(total_ruby_found)
     total_real = total_ruby_found[0]
-    return 'victorious!' if total_real > 10
+    return 'victorious!' if total_real >= 10
     return 'sad.' if total_real >= 1 && total_real <= 9
     return 'empty-handed.' if total_real.zero?
   end
@@ -79,10 +79,11 @@ Going home #{mood?(total_ruby_found)}"
       @total_ruby_found[1] += current_found[1] # add up the fake ruby
       print_ruby_found_in_this_location(current_locaiton, current_found)
     end
-    # true
   end
 
   # This is the actual method where prospector do the rush
+  # argument: current_locaiton
+  # return: N/A
   def ruby_rush(current_locaiton)
     print_start(@number)
     if @num_of_turns > 1

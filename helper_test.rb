@@ -46,14 +46,14 @@ class Helpertest < Minitest::Test
   # args = [1, 1, 1] --> nil
   # args = [a, s, d, f] --> false
   # args = [1, 2, 3, 4, 5] --> nil
-  # def test_int_check
-  #   assert_equal int_check([]), [] # pass
-  #   assert_equal int_check(['%1']), false # pass
-  #   assert_equal int_check(['%1', '%1']), false # pass
-  #   assert_equal int_check(['%1', '%1', '%1']), false # pass
-  #   assert_equal int_check(['%k', '%k', '%k']), false # pass
-  #   assert_equal int_check(['%a', '%s', '%d', '%f']), false # pass
-  # end
+  def test_int_check
+    assert_equal int_check([]), true # pass
+    assert_equal int_check(['1']), true # pass
+    assert_equal int_check(['1', '1']), true # pass
+    assert_equal int_check(['1', '1', '1']), true # pass
+    assert_equal int_check(['k', 'k', 'k']), false # pass
+    assert_equal int_check(['a', 's', 'd', 'f']), false # pass
+  end
 
   # UNIT TESTS FOR neg_check(args)
   # Equivalence classes:
@@ -104,10 +104,10 @@ class Helpertest < Minitest::Test
   # UNIT TEST FOR print_usage
   # compare the output
   def test_print_usage
-    assert_output('Usage:
+    assert_output("Usage:
 ruby ruby_rush.rb *seed* *num_prospectors* *num_turns*
 *seed* should be an integer
 *num_prospectors* should be a non-negative integer
-*num_turns* should be a non-negative integer') { print_usage }
+*num_turns* should be a non-negative integer\n") { print_usage }
   end
 end
